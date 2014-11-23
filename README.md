@@ -1,4 +1,0 @@
-Sunshine
-========
-
-Sample Android App
