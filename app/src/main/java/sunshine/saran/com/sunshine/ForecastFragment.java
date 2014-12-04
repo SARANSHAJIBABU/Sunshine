@@ -105,7 +105,7 @@ public class ForecastFragment extends Fragment {
                 Uri builtUri= Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM,params[0])
                         .appendQueryParameter(FORMAT_PARAM,format)
-                        .appendQueryParameter(UNITS_PARAM,params[1])
+                        .appendQueryParameter(UNITS_PARAM,units)
                         .appendQueryParameter(DAYS_PARAM,""+numDays)
                         .build();
                 URL url = new URL(builtUri.toString());
@@ -189,6 +189,15 @@ public class ForecastFragment extends Fragment {
          */
         private String formatHighLows(double high, double low) {
             // For presentation, assume the user doesn't care about tenths of a degree.
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String unitType = sharedPreferences.getString(getString(R.string.pref_units_key),getString(R.string.pref_units_defaultvalue));
+
+            if(unitType.equals(getString(R.string.pref_units_imperial))){
+                high = (high * 1.8) + 32;
+                low = (low * 1.8) + 32;
+            }else if(!unitType.equals(getString(R.string.pref_units_metric))){
+                Log.d(TAG,"Unit type not found "+unitType);
+            }
             long roundedHigh = Math.round(high);
             long roundedLow = Math.round(low);
 
@@ -275,7 +284,7 @@ public class ForecastFragment extends Fragment {
     private void updateWeather(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String pinCode = sharedPreferences.getString(getString(R.string.pref_locaton_key),getString(R.string.pref_locaton_defaultvalue));
-        String unit = sharedPreferences.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_defaultvalue));
-        new FetchWeatherTask().execute(new String[]{pinCode,unit});
+       // String unit = sharedPreferences.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_defaultvalue));
+        new FetchWeatherTask().execute(new String[]{pinCode});
     }
 }

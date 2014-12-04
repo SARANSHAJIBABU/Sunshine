@@ -84,6 +84,8 @@ public class DetailActivity extends ActionBarActivity {
            inflater.inflate(R.menu.detailfragment,menu);
             MenuItem menuItem =menu.findItem(R.id.action_share);
             ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+            //Attach an intent to shareActionProvider
             if(shareActionProvider!=null){
                 shareActionProvider.setShareIntent(createShareIntent());
             }else{

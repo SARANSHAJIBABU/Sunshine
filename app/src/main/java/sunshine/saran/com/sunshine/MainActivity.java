@@ -102,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
 
+        //Only if the activity resolves successfully
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
         }else{
