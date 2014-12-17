@@ -81,12 +81,18 @@ public class DetailActivity extends ActionBarActivity {
 
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            //Inflater inflates R.menu.detailfragment into menu
            inflater.inflate(R.menu.detailfragment,menu);
+
+            //get item using id of item
             MenuItem menuItem =menu.findItem(R.id.action_share);
+
+            //ShareActionProvider Provides list of apps capable of providing shared action
             ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
             //Attach an intent to shareActionProvider
             if(shareActionProvider!=null){
+                //give intent as arguement. Apps will be displayed according to this implicit intent
                 shareActionProvider.setShareIntent(createShareIntent());
             }else{
                 Log.d(TAG,"ShareActionProvider is null");

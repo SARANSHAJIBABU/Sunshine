@@ -96,10 +96,13 @@ public class MainActivity extends ActionBarActivity {
     private void openPreferredLocation() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         String location = pref.getString(getString(R.string.pref_locaton_key),getString(R.string.pref_locaton_defaultvalue));
+
+        //Create uri with geoscheme
         Uri geoLocation = Uri.parse("geo:0.0?").buildUpon()
                 .appendQueryParameter("q",location)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        //Use setData with Uri
         intent.setData(geoLocation);
 
         //Only if the activity resolves successfully

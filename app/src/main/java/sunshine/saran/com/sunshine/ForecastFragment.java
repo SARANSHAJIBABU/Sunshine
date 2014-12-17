@@ -52,6 +52,9 @@ public class ForecastFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //If not enabled, menu item refresh wont be displayed
+        //Only those items in MainActivity's onCreateOptionsMenu
+        //get displayed
         setHasOptionsMenu(true);
     }
 
@@ -102,6 +105,7 @@ public class ForecastFragment extends Fragment {
                 final String DAYS_PARAM="cnt";
                 final String UNITS_PARAM="units";
 
+                //Building uri
                 Uri builtUri= Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM,params[0])
                         .appendQueryParameter(FORMAT_PARAM,format)
@@ -282,6 +286,7 @@ public class ForecastFragment extends Fragment {
     }
 
     private void updateWeather(){
+        //Get sharedprefrence instance
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String pinCode = sharedPreferences.getString(getString(R.string.pref_locaton_key),getString(R.string.pref_locaton_defaultvalue));
        // String unit = sharedPreferences.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_defaultvalue));
